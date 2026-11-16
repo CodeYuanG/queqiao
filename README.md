@@ -14,6 +14,22 @@
 
 自托管中继见 [docs/relay-deploy.md](docs/relay-deploy.md)。
 
+## 排查远程电脑技能
+
+把「排查远程电脑」技能装进支持的编码助手（由鹊桥提供远程协助能力）。技能只是使用说明，不会代替 MCP 控制端或桌面端，也不会自动获得远程权限。
+
+```bash
+npx skills add CodeYuanG/queqiao --skill queqiao-remote-assist
+```
+
+在本仓库目录里也可以用：
+
+```bash
+npx skills add ./ --skill queqiao-remote-assist
+```
+
+发布到其他技能或 MCP 市场的准备说明见 [docs/promo/ecosystem/README.md](docs/promo/ecosystem/README.md)。ClawHub、LobeHub 和 Cline 市场尚未上架。
+
 ## 权限和记录
 
 - 临时凭证：连上要本机点「允许协助」。查看进程、服务、日志和文件之后，执行命令或截屏还要再点允许或拒绝。拒绝则没有改动。可在本机停止接受。

@@ -1,0 +1,164 @@
+{
+  "identifier": "codeyuang-queqiao",
+  "name": "Queqiao",
+  "version": "0.1.8",
+  "description": "Local stdio MCP controller that lets an agent inspect another computer after the owner shares a Queqiao credential. This is not a hosted MCP endpoint.",
+  "author": "CodeYuanG",
+  "authorUrl": "https://github.com/CodeYuanG",
+  "category": "developer",
+  "homepage": "https://github.com/CodeYuanG/queqiao",
+  "tags": [
+    "remote-assist",
+    "mcp",
+    "troubleshooting"
+  ],
+  "localizations": [
+    {
+      "locale": "zh-CN",
+      "name": "排查远程电脑",
+      "description": "让 Agent 帮你排查另一台电脑。协助方本机运行 MCP 控制端，连接对方已打开的鹊桥桌面端。官网和中继不是托管 MCP 地址。"
+    }
+  ],
+  "tools": [
+    {
+      "name": "connect",
+      "description": "连接远端被控端。参数 payload 为短码或完整 remoteassist:pair?... 凭证；短码可另传 relay。已连接时会先断开再连新会话。对方须已开启接受协助；临时码还要本机点允许。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payload": {
+            "type": "string",
+            "description": "短码或完整 pair 载荷"
+          },
+          "relay": {
+            "type": "string",
+            "description": "短码中继 host:port，可选"
+          }
+        },
+        "required": [
+          "payload"
+        ]
+      }
+    },
+    {
+      "name": "disconnect",
+      "description": "断开当前远端会话。未连接时也安全。无需参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "connection_status",
+      "description": "查看是否已配对远端。返回 connected 或 disconnected。无需参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "host_info",
+      "description": "查看远端系统基础信息（os、version、arch、hostname、username、home、path_style、shell 与命令提示）。需已 connect。无需参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "list_processes",
+      "description": "列出远端正在运行的进程（名称与数量）。需已 connect。无需参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "list_services",
+      "description": "列出远端 Windows 服务及状态。需已 connect。无需参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "list_dir",
+      "description": "列出远端某目录下的文件与子目录。参数 path 为远端绝对路径。需已 connect。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "远端目录绝对路径"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      }
+    },
+    {
+      "name": "read_file",
+      "description": "读取远端文本文件全文（适合配置、小日志）。大文件请改用 read_log_tail。需已 connect。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "远端文件绝对路径"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      }
+    },
+    {
+      "name": "read_log_tail",
+      "description": "读取远端日志文件末尾若干行。参数 path 必填；lines 可选，默认约 80。需已 connect。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "远端日志文件绝对路径"
+          },
+          "lines": {
+            "type": "integer",
+            "description": "读取末尾行数，默认 80"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      }
+    },
+    {
+      "name": "take_screenshot",
+      "description": "截取远端主屏幕，经中继回传 JPEG。临时码且非完全信任、非无人值守时，对方本机需点允许。需已 connect。无需参数。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "run_command",
+      "description": "向远端提议执行一条命令。临时码默认须对方本机点允许；长久码无人值守或完全信任时可能不再逐次弹窗。需已 connect。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "要在远端执行的命令行"
+          },
+          "summary": {
+            "type": "string",
+            "description": "给人看的一句话说明，会显示在对方确认窗"
+          }
+        },
+        "required": [
+          "command"
+        ]
+      }
+    }
+  ]
+}

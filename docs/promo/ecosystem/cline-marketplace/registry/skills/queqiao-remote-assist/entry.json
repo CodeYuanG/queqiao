@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schemas/skill.schema.json",
+  "id": "queqiao-remote-assist",
+  "type": "skill",
+  "name": "排查远程电脑",
+  "tagline": "Let an agent inspect another computer via Queqiao's local MCP controller.",
+  "description": "Queqiao (鹊桥) skill named 排查远程电脑. It teaches an agent to install the local stdio MCP controller, ask the assisted person to share a complete connection credential, then inspect processes, services, and logs. The skill does not grant remote access by itself. Temporary credentials still require on-device approval for connect and for commands; unattended long-lived codes skip per-action prompts. The public website and relay are not a hosted MCP endpoint. The install command only works after this skill is pushed to https://github.com/CodeYuanG/queqiao.",
+  "author": {
+    "name": "CodeYuanG",
+    "url": "https://github.com/CodeYuanG"
+  },
+  "homepage": "https://github.com/CodeYuanG/queqiao",
+  "repo": "https://github.com/CodeYuanG/queqiao",
+  "tags": [
+    "software",
+    "productivity"
+  ],
+  "license": "MIT",
+  "verified": false,
+  "featured": false,
+  "install": {
+    "args": [
+      "CodeYuanG/queqiao",
+      "--skill",
+      "queqiao-remote-assist"
+    ],
+    "notes": "This is a skill, not a remote MCP listing. Queqiao's MCP server is a local stdio binary the skill helps install; do not configure http://121.196.45.81/ as a hosted MCP URL. The public cline skill install / npx skills add command requires the skill to already be on the default branch of CodeYuanG/queqiao."
+  }
+}
